@@ -32,7 +32,7 @@ jobs:
 
       - name: Get Download Info
         run: |
-          INFO=$(docker run --rm -it --init --cap-add=SYS_ADMIN ghcr.io/puppeteer/puppeteer:latest node -e "$(cat download_info.js)")
+          INFO=$(docker run --rm --init --cap-add=SYS_ADMIN ghcr.io/puppeteer/puppeteer:latest node -e "$(cat download_info.js)")
           echo $INFO
           echo $INFO >> $GITHUB_ENV
 
