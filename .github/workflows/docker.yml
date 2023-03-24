@@ -33,8 +33,9 @@ jobs:
       - name: Get Download Info
         run: |
           INFO=$(docker run --rm --init --cap-add=SYS_ADMIN ghcr.io/puppeteer/puppeteer:latest node -e "$(cat download_info.js)")
-          echo $INFO
-          echo $INFO >> $GITHUB_ENV
+          readarray -t <<< $INFO
+          echo ${MAPFILE[0]} >> $GITHUB_ENV
+          echo ${MAPFILE[1]} >> $GITHUB_ENV
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
