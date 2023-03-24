@@ -11,4 +11,4 @@ fi
 
 chown --quiet -R $PUID:$PGID /home/abc
 
-runuser -u abc -g abc /opt/wemeet/wemeetapp.sh
+runuser -u abc /opt/wemeet/wemeetapp.sh
