@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  app:
+    image: wemeet
+    environment:
+      DISPLAY: $DISPLAY
+      XDG_RUNTIME_DIR: $XDG_RUNTIME_DIR
+      PUID: 1000
+      PGID: 1000
+      VIDEO_GID: 985 # optional, for webcams
+    volumes:
+      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR # would immediately exit if not set
+      - /tmp/.X11-unix:/tmp/.X11-unix # x display
+      - ~/.icons:/home/abc/.icons:ro # cursor theme
+      - data:/home/abc # data
+    ipc: host
+    cap_drop: ["ALL"]
+    cap_add:
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+      - CHOWN
+    security_opt:
+      - no-new-privileges
+    devices:
+      - /dev/dri
+      - /dev/video0
+
+volumes:
+  data:
