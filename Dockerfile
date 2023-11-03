@@ -2,16 +2,16 @@ FROM ubuntu:jammy
 WORKDIR /app
 ARG DEBIAN_FRONTEND=noninteractive
 
+ARG WEMEET_URL=https://updatecdn.meeting.qq.com/cos/da1c30b1a927cd691e4ee60aba829c88/TencentMeeting_0300000000_3.15.1.403_x86_64_default.publish.deb
+
 RUN apt-get update &&\
     apt-get install -y curl libqt5gui5 \
-        libnss3 desktop-file-utils libpulse0 libasound2
-
-ARG WEMEET_URL=https://updatecdn.meeting.qq.com/cos/1b001ef75914a1d6948decb8c2550b47/TencentMeeting_0300000000_3.14.0.401_x86_64_default.publish.deb
-RUN curl -SL $WEMEET_URL -o wemeet.deb &&\
+        libnss3 desktop-file-utils libpulse0 libasound2 &&\
+    curl -SL $WEMEET_URL -o wemeet.deb &&\
     dpkg -i wemeet.deb &&\
-    rm wemeet.deb
+    rm wemeet.deb &&\
+    apt-get clean &&\
+    useradd -m -U abc
 
-RUN useradd -m -U abc
-
-COPY init.sh .
-CMD ["/bin/sh", "/app/init.sh"]
+USER abc
+CMD ["/bin/sh", "/opt/wemeet/wemeetapp.sh"]

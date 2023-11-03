@@ -30,13 +30,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get Download Info
-        run: |
-          INFO=$(docker run --rm --init --cap-add=SYS_ADMIN ghcr.io/puppeteer/puppeteer:latest node -e "$(cat download_info.js)")
-          readarray -t <<< $INFO
-          echo ${MAPFILE[0]} >> $GITHUB_ENV
-          echo ${MAPFILE[1]} >> $GITHUB_ENV
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
@@ -45,5 +38,3 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ env.wemeet_version }}
-          build-args: |
-            WEMEET_URL=${{ env.wemeet_url }}
