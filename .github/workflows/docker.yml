@@ -6,6 +6,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: wemeet # ${{ github.repository }}
+  APP_URL: https://updatecdn.meeting.qq.com/cos/da1c30b1a927cd691e4ee60aba829c88/TencentMeeting_0300000000_3.15.1.403_x86_64_default.publish.deb
+  APP_VERSION: 3.15.1.403
 
 jobs:
   build-and-push-image:
@@ -35,4 +37,6 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ env.wemeet_version }}
+            ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ env.APP_VERSION }}
+          build-args: |
+            WEMEET_URL=${{ env.APP_URL }}
