@@ -15,4 +15,4 @@ RUN curl -SL $WEMEET_URL -o wemeet.deb &&\
 
 RUN useradd -m -U abc
 USER abc
-CMD ["/bin/sh", "/opt/wemeet/wemeetapp.sh"]
+CMD ["/bin/bash", "/opt/wemeet/wemeetapp.sh"]
