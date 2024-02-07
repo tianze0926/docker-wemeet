@@ -2,13 +2,14 @@ version: '3'
 
 services:
   app:
-    image: ghcr.io/tianze0926/wemeet:latest
+    build:
+      dockerfile: Dockerfile.init
+      args:
+        UID: 1000
+        GID: 100
     environment:
       DISPLAY: $DISPLAY
       XDG_RUNTIME_DIR: $XDG_RUNTIME_DIR
-      PUID: 1000
-      PGID: 1000
-      VIDEO_GID: 985 # optional, for webcams
     volumes:
       - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR # would immediately exit if not set
       - /tmp/.X11-unix:/tmp/.X11-unix # x display

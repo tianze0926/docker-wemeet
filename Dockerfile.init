@@ -1,0 +1,11 @@
+FROM ghcr.io/tianze0926/wemeet
+
+ARG UID
+ARG GID
+
+USER root
+RUN usermod --non-unique --uid $UID abc &&\
+    groupmod --non-unique --gid $GID abc &&\
+    chown --quiet -R $UID:$GID /home/abc
+
+USER abc
