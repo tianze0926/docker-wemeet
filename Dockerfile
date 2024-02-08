@@ -4,6 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update &&\
     apt-get install -y curl libqt5gui5 \
+        fonts-wqy-microhei \
         libnss3 desktop-file-utils libpulse0 libasound2 &&\
     apt-get clean
 
